@@ -27,7 +27,7 @@
             if (pattern.endsWith("*")) {
               const prefix = pattern.slice(0, -1); // remove the *
               if (key && key.startsWith(prefix)) {
-                destination = routes[pattern] + key.slice(prefix.length);
+                destination = routes[pattern];
                 break;
               }
             }
