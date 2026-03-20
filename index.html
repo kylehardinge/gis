@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+</head>
+
+<body>
+    <p>Redirecting...</p>
+
+    <script>
+        async function redirect() {
+            // Get query param (e.g., ?key=abc)
+            const params = new URLSearchParams(window.location.search);
+            const key = params.get("key");
+
+            try {
+                // Load routes.json
+                const res = await fetch("routes.json");
+                const routes = await res.json();
+
+                // Determine destination
+                let destination = routes[key];
+
+                if (!destination) {
+                    destination = routes["*"];
+                }
+
+                if (destination) {
+                    window.location.replace(destination);
+                } else {
+                    document.body.innerHTML = "<p>No route found.</p>";
+                }
+
+            } catch (err) {
+                console.error(err);
+                document.body.innerHTML = "<p>Error loading routes.</p>";
+            }
+        }
+
+        redirect();
+    </script>
+</body>
+
+</html>
