@@ -1,6 +1,5 @@
 {
-  "northside_1": "https://www.google.com/maps/d/u/0/edit?mid=1Hm2imEqLJQOIJRomBVf0QKXle_Nwlmo",
-  "northside_2": "https://www.google.com/maps/d/u/0/edit?mid=1Hm2imEqLJQOIJRomBVf0QKXle_Nwlmo",
-  "northside_3": "https://www.google.com/maps/d/u/0/edit?mid=1Hm2imEqLJQOIJRomBVf0QKXle_Nwlmo",
-  "*": "https://www.google.com/maps/d/u/0/edit?mid=1Hm2imEqLJQOIJRomBVf0QKXle_Nwlmo"
+  "northside_*": "https://www.google.com/maps/d/edit?mid=1wnv-VqkZjtm1veOBODyEZiajsR84lpo",
+  "piedmont_*": "https://www.google.com/maps/d/u/0/edit?mid=1eHEAyhlGqmtKjTSxWlkEzYSRVIkbDaM",
+  "*": "https://www.google.com/maps/d/edit?mid=1wnv-VqkZjtm1veOBODyEZiajsR84lpo"
 }
