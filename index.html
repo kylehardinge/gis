@@ -1,46 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <title>Redirecting...</title>
+  <meta charset="UTF-8" />
+  <title>Redirecting...</title>
 </head>
-
 <body>
-    <p>Redirecting...</p>
+  <p>Redirecting...</p>
 
-    <script>
-        async function redirect() {
-            // Get query param (e.g., ?key=abc)
-            const params = new URLSearchParams(window.location.search);
-            const key = params.get("key");
+  <script>
+    async function redirect() {
+      const params = new URLSearchParams(window.location.search);
+      const key = params.get("key");
 
-            try {
-                // Load routes.json
-                const res = await fetch("routes.json");
-                const routes = await res.json();
+      try {
+        const res = await fetch("routes.json");
+        const routes = await res.json();
 
-                // Determine destination
-                let destination = routes[key];
+        let destination = null;
 
-                if (!destination) {
-                    destination = routes["*"];
-                }
-
-                if (destination) {
-                    window.location.replace(destination);
-                } else {
-                    document.body.innerHTML = "<p>No route found.</p>";
-                }
-
-            } catch (err) {
-                console.error(err);
-                document.body.innerHTML = "<p>Error loading routes.</p>";
+        // 1️⃣ Exact match
+        if (routes[key]) {
+          destination = routes[key];
+        } else {
+          // 2️⃣ Wildcard matches (thing_*, stuff_*)
+          for (const pattern of Object.keys(routes)) {
+            if (pattern.endsWith("*")) {
+              const prefix = pattern.slice(0, -1); // remove the *
+              if (key && key.startsWith(prefix)) {
+                destination = routes[pattern] + key.slice(prefix.length);
+                break;
+              }
             }
+          }
         }
 
-        redirect();
-    </script>
-</body>
+        // 3️⃣ Fallback *
+        if (!destination && routes["*"]) {
+          destination = routes["*"];
+        }
 
+        if (destination) {
+          window.location.replace(destination);
+        } else {
+          document.body.innerHTML = "<p>No route found.</p>";
+        }
+
+      } catch (err) {
+        console.error(err);
+        document.body.innerHTML = "<p>Error loading routes.</p>";
+      }
+    }
+
+    redirect();
+  </script>
+</body>
 </html>
